@@ -1,10 +1,9 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Post, TrashIcon } from "../components/index";
+import { Post, PostDetailSkeleton, TrashIcon } from "../components/index";
 import { useState, useEffect } from "react";
 import documentService from "../app/DocService";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoadingFalse, setLoadingTrue } from "../store/reducers/loadingSlice";
 import { deletePost } from "../store/reducers/postsSlice";
 import parse from "html-react-parser";
 import useFileView from "../hooks/useFileView";
@@ -13,7 +12,7 @@ import { useScrollTop } from "./index.js";
 
 const ViewPost = () => {
       useScrollTop();
-      const [postData, setPostData] = useState({});
+      const [postData, setPostData] = useState(null);
       const allPosts = useSelector((state) => state.posts.posts);
       document.title = "Article | " + postData?.title || "Fetching Post...";
       const { id } = useParams();
@@ -23,28 +22,24 @@ const ViewPost = () => {
       const isAdmin = postData ? (userData ? (userData?.$id === postData?.author) === true : false) : false;
       const { url } = useFileView(postData);
       const getPostData = async () => {
-            dispatch(setLoadingTrue());
             const post = await documentService.getSinglePost(id);
             setPostData(post);
-            dispatch(setLoadingFalse());
       };
       useEffect(() => {
             getPostData();
       }, [id]);
       const handlePostDeletion = async () => {
             if (id) {
-                  dispatch(setLoadingTrue());
                   const isPostDeleted = await documentService.deletePost(id);
                   const isFileDeleted = await documentService.deleteFile(postData?.coverImage);
                   dispatch(deletePost(id));
-                  dispatch(setLoadingFalse());
                   if (isPostDeleted && isFileDeleted) {
                         toast.success("Post Deleted");
                         navigate("/journals");
                   } else toast.error("Unable to delete this post");
             }
       };
-      return (
+      return postData ? (
             <section className="w-full px-5 font-primary-text min-h-svh text-[var(--color-bl)] bg-[var(--color-wht)]">
                   {/* Top Section */}
                   <section className="w-full pt-28 flex flex-col lg:flex-row">
@@ -103,6 +98,8 @@ const ViewPost = () => {
                         <section className="w-full grid gap-5 grid-cols-1 sm:grid-cols-2 ">{allPosts?.length > 0 ? allPosts?.map((eachPost) => eachPost.$id != id && <Post key={eachPost.$id} postData={eachPost} />).slice(0, 3) : <div className=" text-center text-2xl px-10 col-span-full place-self-center ">No Post Available! Be the first One to write a Post</div>}</section>
                   </section>
             </section>
+      ) : (
+            <PostDetailSkeleton />
       );
 };
 

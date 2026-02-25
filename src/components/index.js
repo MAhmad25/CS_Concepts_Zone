@@ -15,4 +15,5 @@ import PenIcon from "./ui/PenIcon";
 import DistortedGlass from "./ui/DistortedGlass";
 import TrashIcon from "./ui/TrashIcon";
 import LogoutIcon from "./ui/LogoutIcon";
-export { Footer, PillNav, LinesWrapper, PenIcon, LogoutIcon, TrashIcon, DistortedGlass, CardSkeleton, Post, StaggeredMenu, Container, Logout, Input, Loader, RTELoader, RTE, FormTagSelector };
+import PostDetailSkeleton from "./ui/PostSkeleton";
+export { Footer, PillNav, LinesWrapper, PenIcon, PostDetailSkeleton, LogoutIcon, TrashIcon, DistortedGlass, CardSkeleton, Post, StaggeredMenu, Container, Logout, Input, Loader, RTELoader, RTE, FormTagSelector };

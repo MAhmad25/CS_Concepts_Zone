@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { Post, RTELoader } from "../components/index";
 import { useSelector } from "react-redux";
 import { useState, useMemo } from "react";
