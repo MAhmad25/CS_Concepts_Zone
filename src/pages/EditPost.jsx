@@ -16,7 +16,7 @@ const EditPost = () => {
                               setPostObj(postData);
                         });
                   } catch (error) {
-                        console.log(error);
+                        console.log(error.message);
                         navigate("/");
                   }
             } else navigate("/");

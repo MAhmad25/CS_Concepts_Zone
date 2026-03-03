@@ -7,8 +7,10 @@ import { setLoadingFalse, setLoadingTrue } from "../store/reducers/loadingSlice"
 import { useEffect, useRef, useState } from "react";
 import { setNewPost, updatePost } from "../store/reducers/postsSlice";
 import { useScrollTop } from "./index.js";
+import { useWebHaptics } from "web-haptics/react";
 
 const WritePost = ({ editPost }) => {
+      const { trigger } = useWebHaptics();
       useScrollTop();
       document.title = "Minima | Write your post";
       const navigate = useNavigate();
@@ -33,6 +35,9 @@ const WritePost = ({ editPost }) => {
                   readingTime: 1,
             },
       });
+      if (errors) {
+            trigger([{ duration: 40 }, { delay: 40, duration: 40 }, { delay: 40, duration: 40 }], { intensity: 0.9 });
+      }
 
       // if editing and editPost.coverImage is already a URL, show it.
       // If your coverImage is not a URL but an id, replace this with a fetch to get the file URL.
