@@ -1,6 +1,6 @@
 import { Route, Routes, useSearchParams } from "react-router-dom";
 import { Login, Signup, Home, Posts, WritePost, ViewPost, EditPost, Page404 } from "../pages/index";
-import { Footer, PillNav, LinesWrapper, DistortedGlass } from "../components/index";
+import { Footer, PillNav, DistortedGlass } from "../components/index";
 import { useEffect } from "react";
 import appAuth from "../app/AuthService";
 import { useDispatch } from "react-redux";
@@ -61,15 +61,7 @@ const AppRoute = () => {
                   <DistortedGlass />
                   <PillNav items={menuItems} className="fixed top-0 hidden sm:flex" />
                   <Routes>
-                        <Route
-                              index
-                              path="/"
-                              element={
-                                    <LinesWrapper>
-                                          <Home />
-                                    </LinesWrapper>
-                              }
-                        />
+                        <Route index path="/" element={<Home />} />
                         <Route
                               path="/login"
                               element={
