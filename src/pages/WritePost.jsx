@@ -142,12 +142,12 @@ const WritePost = ({ editPost }) => {
                                     <div className="gap-3 w-full h-full mt-5 space-y-10 px-5">
                                           <div className="w-full flex  flex-col">
                                                 <label htmlFor="headline"></label>
-                                                <textarea className="w-full py-2 resize-none min-h-12 sm:text-4xl text-2xl max-h-48 [field-sizing:content] h-auto font-medium placeholder:text-[#cfcfcf] rounded outline-none" rows={1} {...register("title", { required: "Title is required", minLength: { value: 10, message: "Atleast 10 characters" } })} label={"Main Headline"} type={"text"} placeholder={"Title of your post"} />
+                                                <textarea className="w-full py-2 resize-none min-h-12 sm:text-4xl text-3xl font-black max-h-48 [field-sizing:content] h-auto  placeholder:text-[#cfcfcf] rounded outline-none" rows={1} {...register("title", { required: "Title is required", minLength: { value: 10, message: "Atleast 10 characters" } })} label={"Main Headline"} type={"text"} placeholder={"Title of your post"} />
                                                 {errors.title && <span className="text-red-500 text-xs sm:text-sm tracking-tighter leading-none">{errors.title.message}</span>}
                                           </div>
                                           {editPost && <hr />}
 
-                                          <div className=" w-full overflow-hidden">
+                                          <div className="w-full  overflow-hidden">
                                                 <Editor ref={editorRef} initialHTML={editPost?.content || ""} />
                                           </div>
                                           <div className="mt-10 w-[27rem]  gap-5 flex">
