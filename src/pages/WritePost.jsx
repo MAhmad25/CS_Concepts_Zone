@@ -17,7 +17,6 @@ const WritePost = ({ editPost }) => {
       const navigate = useNavigate();
       const userData = useSelector((state) => state.auth.userData);
       const dispatch = useDispatch();
-      // preview URL for selected image (object URL or existing URL)
       const [preview, setPreview] = useState(null);
       const prevUrlRef = useRef(null);
       const editorRef = useRef(null);
