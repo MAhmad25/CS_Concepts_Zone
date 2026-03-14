@@ -120,34 +120,17 @@ const WritePost = ({ editPost }) => {
                   <form onSubmit={handleSubmit(formSubmittingToDb)} className="space-y-5">
                         <h1 className="font-cool mt-10 md:text-5xl text-3xl text-center font-extrabold">{editPost ? "Edit" : "Write"}</h1>
                         <div className="flex space-y-10  justify-center items-center flex-col">
-                              <div onClick={() => document.getElementById("featured-image")?.click()} className="border-2  cursor-pointer  container border-dashed  border-border rounded-lg p-8  text-center">
-                                    <div className="flex flex-col items-center gap-2">
-                                          {preview ? (
-                                                <img src={preview} alt="Featured preview" className="max-h-48 w-full object-cover rounded" />
-                                          ) : (
-                                                <>
-                                                      <p className="text-muted-foreground">Click to upload or drag and drop</p>
-                                                      <p className="text-xs text-muted-foreground">SVG, PNG, JPG or GIF (max. 2MB)</p>
-                                                </>
-                                          )}
-                                          <Input {...coverImageRegister} id="featured-image" type="file" star={true} className="hidden" accept="image/*" onChange={handleFileChange} />
-                                          <button className="cursor-pointer" type="button">
-                                                Select Image
-                                          </button>
-                                    </div>
-                              </div>
-                              {errors.coverImage && <span className="text-red-500 text-xs sm:text-sm tracking-tighter leading-none">{errors.coverImage.message}</span>}
                               {/* user Input */}
                               <section className="w-full flex  overflow-hidden justify-center flex-col items-center">
                                     <div className="gap-3 w-full h-full mt-5 space-y-10 px-5">
-                                          <div className="w-full flex  flex-col">
+                                          <div className="w-full flex   flex-col">
                                                 <label htmlFor="headline"></label>
                                                 <textarea className="w-full py-2 resize-none min-h-12 sm:text-4xl text-3xl font-black max-h-48 [field-sizing:content] h-auto  placeholder:text-[#cfcfcf] rounded outline-none" rows={1} {...register("title", { required: "Title is required", minLength: { value: 10, message: "Atleast 10 characters" } })} label={"Main Headline"} type={"text"} placeholder={"Title of your post"} />
                                                 {errors.title && <span className="text-red-500 text-xs sm:text-sm tracking-tighter leading-none">{errors.title.message}</span>}
                                           </div>
                                           {editPost && <hr />}
 
-                                          <div className="w-full  overflow-hidden">
+                                          <div className="w-full -ml-10 min-h-80 overflow-hidden">
                                                 <Editor ref={editorRef} initialHTML={editPost?.content || ""} />
                                           </div>
                                           <div className="mt-10 w-[27rem]  gap-5 flex">
@@ -156,7 +139,25 @@ const WritePost = ({ editPost }) => {
                                                       {errors.readingTime && <span className="text-red-500 text-xs sm:text-sm tracking-tight leading-none">{errors.readingTime.message}</span>}
                                                 </div>
                                           </div>
+
                                           <FormTagSelector name="tags" control={control} label="Select Tags" error={errors.tags} required />
+                                          <div onClick={() => document.getElementById("featured-image")?.click()} className="border-2  cursor-pointer  container border-dashed  border-border rounded-lg p-8  text-center">
+                                                <div className="flex flex-col items-center gap-2">
+                                                      {preview ? (
+                                                            <img src={preview} alt="Featured preview" className="max-h-48 w-full object-cover rounded" />
+                                                      ) : (
+                                                            <>
+                                                                  <p className="text-muted-foreground">Click to upload or drag and drop</p>
+                                                                  <p className="text-xs text-muted-foreground">SVG, PNG, JPG or GIF (max. 2MB)</p>
+                                                            </>
+                                                      )}
+                                                      <Input {...coverImageRegister} id="featured-image" type="file" star={true} className="hidden" accept="image/*" onChange={handleFileChange} />
+                                                      <button className="cursor-pointer" type="button">
+                                                            Select Image
+                                                      </button>
+                                                </div>
+                                          </div>
+                                          {errors.coverImage && <span className="text-red-500 text-xs sm:text-sm tracking-tighter leading-none">{errors.coverImage.message}</span>}
                                     </div>
                               </section>
                               <button className="px-3  col-span-2 py-2 border-[1px] text-[var(--color-wht)] font-medium bg-[var(--color-bl)] rounded-xl cursor-pointer">{editPost ? "Edit Post" : "Publish Post"}</button>
