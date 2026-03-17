@@ -1,7 +1,7 @@
 {
-      "name": "Minima Blog",
-      "short_name": "Minima Blog",
-      "description": "Write anything that comes to your mind! No limits",
+      "name": "CS Core | For Students",
+      "short_name": "CS",
+      "description": "OS, DBMS, Networks, DSA written by students and devs who just went through it",
       "id": "/",
       "icons": [
             {
@@ -42,6 +42,6 @@
       "lang": "en-US",
       "orientation": "any",
       "display": "fullscreen",
-      "theme_color": "#14120b",
-      "background_color": "#f5f5f5"
+      "theme_color": "#f5f5f5",
+      "background_color": "#f5f5f5#14120b"
 }
