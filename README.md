@@ -1,89 +1,103 @@
+````markdown
 <img src="https://i.ibb.co/whPxFvMC/Screenshot-2026-02-06-214922.png" alt="Screenshot 2026 02 06 214922" border="0">
 
-# 📝 Minima Blog
+# CS Core | For Students
 
-A modern, minimalist fullstack blog platform built with **React**, **Vite**, **TailwindCSS**, **Redux**, and **Appwrite** as the backend server. Effortlessly create, edit, and share beautiful posts with a clean, distraction-free interface.
+A place where CS students and self-taught devs write about the things that actually helped them — DSA patterns, OS concepts, DBMS internals, Networks, and interview questions explained like a human being wrote them.
 
----
-
-## ✨ Features
-
-- **Fullstack** architecture powered by Appwrite (database, auth, storage)
-- Minimalist, responsive UI with custom fonts and smooth layouts
-- Rich text editor for writing posts
-- Authentication (signup, login, logout)
-- Post CRUD: create, edit, delete, view
-- Image upload and preview for posts
-- Tag selection and filtering
-- Loader and feedback components for smooth UX
-- 404 page and protected routes
+Built with React + Vite and Supabase on the backend.
 
 ---
 
-## 🚀 Getting Started
+## What this is
 
-1. **Clone the repository:**
-      ```sh
-      git clone https://github.com/MAhmad25/BlogWeb.git
-      ```
-2. **Install dependencies:**
-      ```sh
-      npm install
-      ```
-3. **Configure your Appwrite server** and update `src/config/Keys.js` with your credentials.
-4. **Start the development server:**
-      ```sh
-      npm run dev
-      ```
+Most CS content online is either a dry textbook or a YouTube video you have to watch at 2x speed the night before an interview. Minima is neither. It is a community platform where people write short, focused articles on core CS subjects — the kind you read when you are on the bus, taking a break, or quietly panicking before a technical round.
 
 ---
 
-## 🛠️ Tech Stack
+## What you can do here
 
-- **Frontend:** React, Vite, TailwindCSS, Redux, React Router, Styled Components
-- **Backend:** Appwrite (Database, Auth, Storage)
-- **Other:** GSAP (animations), Tinymce (rich text editor), React Toast Sileo (notifications)
+| Action            | Details                                           |
+| ----------------- | ------------------------------------------------- |
+| Read articles     | OS, DBMS, Networks, DSA, Interview Q&A            |
+| Write and publish | Rich text editor with cover image and tags        |
+| Edit and manage   | Full CRUD on your own posts                       |
+| Browse by topic   | Filter by tags across subjects                    |
+| Account system    | Signup with OTP email verification, login, logout |
 
 ---
 
-## 📁 Project Structure
+## Run it locally
+
+**Clone the repo**
+
+```sh
+git clone https://github.com/MAhmad25/BlogWeb.git
+```
+````
+
+**Install dependencies**
+
+```sh
+npm install
+```
+
+**Add your Supabase credentials to `src/config/secret.js`**
+
+```js
+const secret = {
+      supabase_url: "your url here",
+      supabase_anon_key: "your anon key here",
+      article_table: "articles",
+      image_bucket: "cover-images",
+};
+export default secret;
+```
+
+**Start the dev server**
+
+```sh
+npm run dev
+```
+
+Open `http://localhost:5173` and create an account.
+
+---
+
+## Project structure
 
 ```
 src/
-  app/           # Appwrite service logic (CRUD, storage)
-  components/    # UI components (Nav, Footer, Post, RTE, etc.)
-  config/        # Keys and config files
-  hooks/         # Custom React hooks
-  pages/         # Page components (Home, Login, Signup, ViewPost, etc.)
-  Routes/        # Route protection and app routing
-  store/         # Redux store and slices
-  utils/         # Utility functions
+├── app/              AuthService.js, DocService.js (Supabase)
+├── components/       Reusable UI, editor, tag selector, skeletons
+├── pages/            Home, Login, Signup, OTP verify, WritePost, EditPost, ViewPost, 404
+├── Routes/           Route setup and Protected route wrapper
+├── store/            Redux store, auth slice, posts slice
+└── hooks/            useScrollTop and other shared hooks
 ```
 
 ---
 
-## 🔒 Authentication & Backend
+## How it works under the hood
 
-All authentication, post management, and file storage are handled via **Appwrite**. You must set up your own Appwrite server and update `src/config/Keys.js` with your project, database, and bucket IDs.
-
----
-
-## 🎨 UI & Styling
-
-The UI is crafted with a focus on minimalism and readability. Custom fonts and TailwindCSS are used for a modern look. Components are modular and easy to extend.
+- Auth is handled through Supabase — signup sends an OTP to the user's email for verification before the account is active
+- Posts live in a Supabase Postgres table, cover images go into a Supabase storage bucket
+- Redux manages auth state, post list, and loading across the app
+- Protected routes check the auth slice before rendering any page that requires login
 
 ---
 
-## 🙌 Contributing
+## Extend it
 
-Pull requests and suggestions are welcome! Please open issues for bugs or feature requests.
-
----
-
-## 📄 License
-
-This project is open source under the MIT License.
+- **Add a new subject tag** — update the tag list in `src/components/TagSelector.jsx`
+- **Add post metadata** — reading time, difficulty level, subject category live in `src/app/DocService.js`
 
 ---
 
-Made with ❤️ by Ahmad Latif
+## License
+
+MIT
+
+```
+
+```
