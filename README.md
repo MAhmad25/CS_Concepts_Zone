@@ -34,8 +34,6 @@ Most CS content online is either a dry textbook or a YouTube video you have to w
 git clone https://github.com/MAhmad25/BlogWeb.git
 ```
 
-````
-
 **Install dependencies**
 
 ```sh
@@ -97,5 +95,3 @@ src/
 ## License
 
 MIT
-
-
