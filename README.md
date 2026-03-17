@@ -1,4 +1,3 @@
-
 <img src="https://i.ibb.co/whPxFvMC/Screenshot-2026-02-06-214922.png" alt="Screenshot 2026 02 06 214922" border="0">
 
 # 📝 Minima Blog
@@ -43,7 +42,7 @@ A modern, minimalist fullstack blog platform built with **React**, **Vite**, **T
 
 - **Frontend:** React, Vite, TailwindCSS, Redux, React Router, Styled Components
 - **Backend:** Appwrite (Database, Auth, Storage)
-- **Other:** GSAP (animations), Tinymce (rich text editor), React Hot Toast (notifications)
+- **Other:** GSAP (animations), Tinymce (rich text editor), React Toast Sileo (notifications)
 
 ---
 

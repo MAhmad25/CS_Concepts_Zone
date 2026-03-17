@@ -7,7 +7,7 @@ const useAllPosts = () => {
       useEffect(() => {
             (async () => {
                   const allPosts = await documentService.listPosts();
-                  dispatch(setPosts(allPosts?.documents));
+                  dispatch(setPosts(allPosts));
             })();
       }, [dispatch]);
 };

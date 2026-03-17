@@ -5,8 +5,8 @@ const Footer = () => {
                   <div className="flex border-y-[1px] flex-col md:flex-row w-full md:gap-10">
                         {[
                               {
-                                    name: "Minima",
-                                    message: "A minimalist blog platform for the modern web, where ideas meet elegant design.",
+                                    name: "CS Core | For Students",
+                                    message: "OS, DBMS, Networks, DSA written by students and devs who just went through it",
                               },
                               {
                                     name: "Navigation",
@@ -36,7 +36,7 @@ const Footer = () => {
                               </div>
                         ))}
                   </div>
-                  <h1 className="mt-10">© 2025 Minima. All rights reserved</h1>
+                  <h1 className="mt-10">© 2026 CS Core | For Students. All rights reserved</h1>
             </footer>
       );
 };

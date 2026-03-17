@@ -5,9 +5,9 @@ import documentService from "../app/DocService";
 
 const EditPost = () => {
       document.title = "Wanna change something got for it";
-      useScrollTop();
       const navigate = useNavigate();
       const { id } = useParams();
+      useScrollTop();
       const [postObj, setPostObj] = useState({});
       useLayoutEffect(() => {
             if (id) {

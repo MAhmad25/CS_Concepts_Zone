@@ -14,11 +14,11 @@ const postsSlice = createSlice({
                   state.posts.unshift(action.payload);
             },
             deletePost: (state, action) => {
-                  state.posts = state.posts.filter((post) => post.$id !== action.payload);
+                  state.posts = state.posts.filter((post) => post.id != action.payload);
             },
             updatePost: (state, action) => {
                   const { id, updatedPost } = action.payload;
-                  const index = state.posts.findIndex((post) => post.$id === id);
+                  const index = state.posts.findIndex((post) => post.id == id);
                   if (index !== -1) state.posts[index] = updatedPost;
             },
             removePosts: (state) => {

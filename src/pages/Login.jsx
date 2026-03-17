@@ -5,9 +5,7 @@ import { useDispatch } from "react-redux";
 import appAuth from "../app/AuthService";
 import { Input, Loader } from "../components/index";
 import { login } from "../store/reducers/authSlice";
-import toast from "react-hot-toast";
-import documentService from "../app/DocService";
-import { setPosts } from "../store/reducers/postsSlice";
+import { sileo } from "sileo";
 import { useScrollTop } from "./index.js";
 
 function Pupil({ size = 12, maxDistance = 5, pupilColor = "#2D2D2D", forceLookX, forceLookY }) {
@@ -336,7 +334,7 @@ function CharactersScene({ isTypingEmail, password, showPassword }) {
 }
 
 const Login = () => {
-      document.title = "Minima | Please come back";
+      document.title = "Login";
       useScrollTop();
 
       const dispatch = useDispatch();
@@ -363,21 +361,42 @@ const Login = () => {
                   const isLoggedIn = await appAuth.Login(data);
                   if (isLoggedIn) {
                         const userData = await appAuth.getCurrentUser();
-                        if (!userData?.emailVerification) {
-                              toast.error("Your email is not verified yet !");
+                        if (userData.is_anonymous) {
+                              sileo.info({
+                                    title: "Email",
+                                    fill: "black",
+                                    description: "Your email is not verified !",
+                                    styles: {
+                                          title: "text-white!",
+                                          description: "text-white/75!",
+                                    },
+                              });
                               await appAuth.Logout();
                               return;
-                        }
-                        const allPosts = await documentService.listPosts();
-                        dispatch(setPosts(allPosts?.documents));
-                        if (userData && allPosts) {
+                        } else {
                               dispatch(login(userData));
                               navigate("/journals");
                         }
-                  } else toast.error("Email or Password is incorrect !");
+                  } else
+                        sileo.error({
+                              title: "Login Error",
+                              fill: "black",
+                              description: "Invalid Login Credentials !",
+                              styles: {
+                                    title: "text-white!",
+                                    description: "text-white/75!",
+                              },
+                        });
             } catch (error) {
-                  toast.error("Somethings went wrong from our side !");
-                  console.log("Unable to Login: ", error.message);
+                  sileo.error({
+                        title: "Login Error",
+                        fill: "black",
+                        description: error.message,
+                        styles: {
+                              title: "text-white!",
+                              description: "text-white/75!",
+                        },
+                  });
             }
       };
 

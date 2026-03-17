@@ -13,7 +13,7 @@ import Editor from "../components/Editor.jsx";
 const WritePost = ({ editPost }) => {
       const { trigger } = useWebHaptics({ debug: true });
       useScrollTop();
-      document.title = "Minima | Write your post";
+      document.title = "Write your post";
       const navigate = useNavigate();
       const userData = useSelector((state) => state.auth.userData);
       const dispatch = useDispatch();
@@ -29,7 +29,6 @@ const WritePost = ({ editPost }) => {
       } = useForm({
             defaultValues: {
                   title: "",
-                  slug: "",
                   content: "",
                   tags: [],
                   coverImage: "",
@@ -45,7 +44,6 @@ const WritePost = ({ editPost }) => {
             if (editPost) {
                   reset({
                         title: editPost.title || "",
-                        slug: editPost.slug || "",
                         content: editPost.content || "",
                         tags: editPost.tags || [],
                         coverImage: editPost?.coverImage || "",
@@ -87,31 +85,35 @@ const WritePost = ({ editPost }) => {
       }, []);
 
       const formSubmittingToDb = async (data) => {
-            dispatch(setLoadingTrue());
-            const contentHTML = await editorRef.current?.getHTML?.();
-            const finalData = { ...data, content: contentHTML ?? "" };
-            if (editPost) {
-                  const hasNewImage = finalData.coverImage && finalData.coverImage.length > 0 && finalData.coverImage[0];
-                  const newFile = hasNewImage && (await docService.createFile(finalData.coverImage[0]));
-                  if (newFile) {
-                        await docService.deleteFile(editPost?.coverImage);
-                  }
-                  const updatedPost = await docService.updatePost(editPost.$id, { ...finalData, coverImage: newFile ? newFile.$id : editPost?.coverImage });
-                  if (updatedPost) {
-                        dispatch(updatePost({ id: editPost.$id, updatedPost }));
-                        dispatch(setLoadingFalse());
-                        navigate(`/journals/${updatedPost.$id}`);
-                  }
-            } else {
-                  const newFile = finalData.coverImage[0] && (await docService.createFile(finalData.coverImage[0]));
-                  if (newFile) {
-                        const newPost = await docService.createPost({ ...finalData, coverImage: newFile.$id, author: userData.$id, authorName: userData.name });
-                        if (newPost) {
-                              dispatch(setNewPost(newPost));
+            try {
+                  dispatch(setLoadingTrue());
+                  const contentHTML = await editorRef.current?.getHTML?.();
+                  const finalData = { ...data, content: contentHTML ?? "" };
+                  if (editPost) {
+                        const hasNewImage = finalData.coverImage && finalData.coverImage.length > 0 && finalData.coverImage[0];
+                        const newFile = hasNewImage && (await docService.createFile(finalData.coverImage[0]));
+                        if (newFile) {
+                              await docService.deleteFile(editPost?.coverImage);
+                        }
+                        const updatedPost = await docService.updatePost(editPost.id, { ...finalData, coverImage: newFile ? newFile.path : editPost?.coverImage });
+                        if (updatedPost) {
+                              dispatch(updatePost({ id: editPost.id, updatedPost }));
                               dispatch(setLoadingFalse());
-                              navigate(`/journals/${newPost.$id}`);
+                              navigate(`/journals/${updatedPost.id}`);
+                        }
+                  } else {
+                        const newFile = finalData.coverImage[0] && (await docService.createFile(finalData.coverImage[0]));
+                        if (newFile) {
+                              const newPost = await docService.createPost({ ...finalData, coverImage: newFile.path, author: userData.id, authorName: userData.user_metadata.username });
+                              if (newPost) {
+                                    dispatch(setNewPost(newPost));
+                                    dispatch(setLoadingFalse());
+                                    navigate(`/journals/${newPost.id}`);
+                              }
                         }
                   }
+            } catch (error) {
+                  if (error) dispatch(setLoadingFalse());
             }
       };
       return (

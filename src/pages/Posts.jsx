@@ -5,7 +5,7 @@ import { useScrollTop } from "./index.js";
 
 const Posts = () => {
       useScrollTop();
-      document.title = "Minima | Journals";
+      document.title = "CS Core | Journals";
       const allPosts = useSelector((state) => state.posts.posts);
       const [searchTerm, setSearchTerm] = useState("");
       const filteredPosts = useMemo(() => {
@@ -26,7 +26,7 @@ const Posts = () => {
             <section className="w-full space-y-5 px-5 min-h-screen py-10 font-primary-text text-[var(--color-bl)] ">
                   <div className="flex justify-center items-center mt-10 flex-col gap-10 w-full">
                         <h1 className="font-black text-5xl sm:text-7xl tracking-tight font-cool text-center">Journals</h1>
-                        <p className="font-ppneue sm:w-1/2 text-center text-xl sm:text-2xl">Explore our collection of articles, stories, and insights on design, technology, and creativity.</p>
+                        <p className="font-ppneue sm:w-1/2 text-center text-xl sm:text-2xl">Real articles from real people — prepping for interviews, revising for exams, or just sharing what clicked for them</p>
                   </div>
 
                   {/* Tags and Search */}
@@ -52,7 +52,7 @@ const Posts = () => {
                   {/* All Posts */}
                   <section className="w-full grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                         {filteredPosts?.length > 0 ? (
-                              filteredPosts.map((eachPost) => <Post key={eachPost?.$id} postData={eachPost} />)
+                              filteredPosts.map((eachPost) => <Post key={eachPost?.id} postData={eachPost} />)
                         ) : allPosts?.length === 0 ? (
                               <div className="mx-auto col-span-full">
                                     <RTELoader />

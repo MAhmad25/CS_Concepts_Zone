@@ -1,53 +1,84 @@
-import { Client, Account, ID } from "appwrite";
-import secret from "../config/Keys";
+import { createClient } from "@supabase/supabase-js";
+import secret from "../config/secret";
+
 export class AuthService {
-      client = new Client();
-      account;
-      user;
+      supabase;
+
       constructor() {
-            this.client.setEndpoint(secret.base_url).setProject(secret.project_id);
-            this.account = new Account(this.client);
+            this.supabase = createClient(secret.supabase_url, secret.supabase_anon_key);
       }
-      async verifyEmail(userId, secret) {
-            return await this.account.updateVerification(userId, secret);
+
+      async verifyEmail(email, otp) {
+            try {
+                  const { error } = await this.supabase.auth.verifyOtp({
+                        email,
+                        token: otp,
+                        type: "email",
+                  });
+                  if (error) throw error;
+                  return true;
+            } catch (error) {
+                  console.log("Email verification failed:", error.message);
+                  return false;
+            }
       }
+
       async createAccount({ email, password, username }) {
             try {
-                  await this.account.create(ID.unique(), email, password, username);
-                  await this.account.createEmailPasswordSession(email, password);
-                  await this.account.createVerification("https://minimafordev.vercel.app");
+                  const { error } = await this.supabase.auth.signUp({
+                        email,
+                        password,
+                        options: {
+                              data: { username },
+                        },
+                  });
+
+                  if (error) throw error;
                   return true;
             } catch (error) {
                   console.log(error.message);
                   return false;
             }
       }
+
       async Login({ email, password }) {
             try {
-                  await this.account.createEmailPasswordSession(email, password);
+                  const { error } = await this.supabase.auth.signInWithPassword({
+                        email,
+                        password,
+                  });
+                  if (error) throw error;
                   return true;
             } catch (error) {
                   console.log(error.message);
                   return false;
             }
       }
+
       async Logout() {
             try {
-                  return await this.account.deleteSession("current");
+                  const { error } = await this.supabase.auth.signOut();
+                  if (error) throw error;
+                  return true;
             } catch (error) {
-                  console.log("Unable to logout", error.message);
+                  console.log("Unable to logout:", error.message);
             }
       }
+
       async getCurrentUser() {
             try {
-                  const user = await this.account.get();
-                  if (user) return user;
-                  else return false;
+                  const {
+                        data: { user },
+                        error,
+                  } = await this.supabase.auth.getUser();
+                  if (error) throw error;
+                  return user ?? false;
             } catch (err) {
-                  console.log("User is not Logged in ", err.message);
+                  console.log("User is not logged in:", err.message);
                   return false;
             }
       }
 }
+
 const appAuth = new AuthService();
 export default appAuth;

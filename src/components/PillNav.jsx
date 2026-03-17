@@ -4,7 +4,7 @@ import { gsap } from "gsap";
 import { useSelector } from "react-redux";
 import { Logout, LogoutIcon, PenIcon } from "./index";
 
-const PillNav = ({ logo = "/favicon-628.png", logoAlt = "Logo", items, activeHref, className = "", ease = "power3.easeOut", baseColor = "#fff", pillColor = "#060010", hoveredPillTextColor = "#060010", pillTextColor, initialLoadAnimation = true }) => {
+const PillNav = ({ logo = "/favicon-628.png", logoAlt = "Logo", items, activeHref, className = "", ease = "power3.easeOut", baseColor = "#fff", pillColor = "#060010", hoveredPillTextColor = "#060010", pillTextColor, initialLoadAnimation = false }) => {
       const status = useSelector((state) => state.auth.status);
       const loading = useSelector((state) => state.loader.isSkeleton);
       const resolvedPillTextColor = pillTextColor ?? baseColor;

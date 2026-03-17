@@ -1,4 +1,4 @@
-import { Route, Routes, useSearchParams } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Login, Signup, Home, Posts, WritePost, ViewPost, EditPost, Page404 } from "../pages/index";
 import { PillNav } from "../components/index";
 import { lazy, Suspense, useEffect } from "react";
@@ -6,51 +6,30 @@ import appAuth from "../app/AuthService";
 import { useDispatch } from "react-redux";
 import { login, logout } from "../store/reducers/authSlice";
 import { showSkeletonFalse } from "../store/reducers/loadingSlice";
-import toast, { Toaster } from "react-hot-toast";
 import Protected from "./Protected";
 import useAllPosts from "../hooks/useAllPosts";
-const LazyDistortedGlass = lazy(() => import("../components/ui/DistortedGlass"));
+import { Toaster } from "sileo";
+import VerifyEmail from "../components/OTP";
 const LazyFooter = lazy(() => import("../components/Footer"));
 const AppRoute = () => {
       const dispatch = useDispatch();
-      const [searchParams] = useSearchParams();
-      const userid = searchParams.get("userId");
-      const secret = searchParams.get("secret");
+      useAllPosts();
       useEffect(() => {
             (async () => {
-                  if (userid && secret) {
-                        try {
-                              const isVerified = await appAuth.verifyEmail(userid, secret);
-                              if (isVerified) {
-                                    toast.success("Email Successfully Verifed !");
-                                    window.history.replaceState({}, document.title, "/");
-                              }
-                        } catch (error) {
-                              toast.error("Something went wrong on our side !");
-                              console.log(error.message);
-                              return;
-                        }
-                  }
-                  // If params does not exists
                   try {
                         const userData = await appAuth.getCurrentUser();
-                        if (userData && userData.emailVerification) {
-                              // Here the userData will come check if user email is verified
-                              dispatch(showSkeletonFalse());
+                        if (userData && !userData.is_anonymous) {
                               dispatch(login(userData));
                         } else {
                               dispatch(logout());
-                              dispatch(showSkeletonFalse());
                         }
+                        dispatch(showSkeletonFalse());
                   } catch (err) {
                         console.log(err.message);
-
                         dispatch(logout());
                   }
             })();
-      }, [dispatch, secret, userid]);
-      useAllPosts();
-
+      }, [dispatch]);
       const menuItems = [
             { label: "Home", ariaLabel: "Go to home page", href: "/" },
             { label: "Journals", ariaLabel: "Read the journals", href: "/journals" },
@@ -58,10 +37,7 @@ const AppRoute = () => {
 
       return (
             <>
-                  <Toaster />
-                  <Suspense fallback={<>Loading</>}>
-                        <LazyDistortedGlass />
-                  </Suspense>
+                  <Toaster position="top-center" />
                   <PillNav items={menuItems} className="fixed top-0 hidden sm:flex" />
                   <Routes>
                         <Route index path="/" element={<Home />} />
@@ -80,7 +56,16 @@ const AppRoute = () => {
                                           <Signup />
                                     </Protected>
                               }
-                        />
+                        >
+                              <Route
+                                    path="verify"
+                                    element={
+                                          <Protected authentication={false}>
+                                                <VerifyEmail />
+                                          </Protected>
+                                    }
+                              />
+                        </Route>
                         <Route path="/journals" element={<Posts />} />
                         <Route path="/journals/:id" element={<ViewPost />} />
                         <Route
