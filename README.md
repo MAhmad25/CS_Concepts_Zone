@@ -1,4 +1,3 @@
-````markdown
 <img src="https://i.ibb.co/whPxFvMC/Screenshot-2026-02-06-214922.png" alt="Screenshot 2026 02 06 214922" border="0">
 
 # CS Core | For Students
@@ -34,6 +33,7 @@ Most CS content online is either a dry textbook or a YouTube video you have to w
 ```sh
 git clone https://github.com/MAhmad25/BlogWeb.git
 ```
+
 ````
 
 **Install dependencies**
@@ -101,3 +101,4 @@ MIT
 ```
 
 ```
+````
