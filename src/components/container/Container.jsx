@@ -1,4 +1,4 @@
 const Container = ({ children }) => {
-      return <main>{children}</main>;
+      return <main className="relative">{children}</main>;
 };
 export default Container;

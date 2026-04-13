@@ -28,7 +28,7 @@ const Signup = () => {
             }
       };
       return (
-            <section className=" min-h-[calc(100svh-5rem)] flex text-[var(--color-bl)] pt-20 font-primary-text justify-center items-center bg-[var(--color-wht)] ">
+            <section className=" min-h-[calc(100svh-5rem)] flex text-[var(--color-bl)] pt-20 font-primary-text justify-center items-center ">
                   <div className="w-full sm:w-1/2  grid place-content-center h-full">
                         {email.length == 0 ? (
                               <>

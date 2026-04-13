@@ -86,6 +86,12 @@ const AppRoute = () => {
                         />
                         <Route path="*" element={<Page404 />} />
                   </Routes>
+                  <div
+                        className="absolute pointer-events-none inset-0 -z-10"
+                        style={{
+                              backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 2px, #f3f4f6a7 2px, #f3f4f6a7 4px)",
+                        }}
+                  />
                   <Suspense fallback={<>Loading</>}>
                         <LazyFooter />
                   </Suspense>

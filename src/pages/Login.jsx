@@ -406,7 +406,7 @@ const Login = () => {
       });
 
       return (
-            <section className="min-h-[calc(100svh-5rem)] flex text-[var(--color-bl)] pt-10 font-primary-text justify-center items-center bg-[var(--color-wht)]">
+            <section className="min-h-[calc(100svh-5rem)] flex text-[var(--color-bl)] pt-10 font-primary-text justify-center items-center ">
                   <div className="w-full px-5 lg:flex h-full lg:justify-center lg:items-center">
                         <CharactersScene isTypingEmail={isEmailFocused} password={passwordValue} showPassword={showPassword} />
                         <div className="lg:w-2/4 md:px-40 lg:px-30">

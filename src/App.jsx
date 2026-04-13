@@ -16,7 +16,7 @@ const App = () => {
                   <ReactLenis root />
                   <Container>
                         {isLoading && <PostLoader />}
-                        <div className="fixed sm:hidden w-screen pointer-events-none z-[9999]  h-screen overflow-hidden">
+                        <div className="fixed  sm:hidden w-screen pointer-events-none z-[9999]  h-screen overflow-hidden">
                               <StaggeredMenu items={menuItems} menuButtonColor="#000000" openMenuButtonColor="#000000" />
                         </div>
                         <AppRoute />
