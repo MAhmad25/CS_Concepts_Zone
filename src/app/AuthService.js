@@ -6,6 +6,7 @@ export class AuthService {
 
       constructor() {
             this.supabase = createClient(secret.supabase_url, secret.supabase_anon_key);
+            this.tempSignupData = null;
       }
 
       async verifyEmail(email, otp) {
@@ -16,6 +17,15 @@ export class AuthService {
                         type: "email",
                   });
                   if (error) throw error;
+                  if (this.tempSignupData?.password) {
+                        const { error: passError } = await this.supabase.auth.updateUser({
+                              password: this.tempSignupData.password,
+                        });
+
+                        if (passError) throw passError;
+                  }
+
+                  this.tempSignupData = null;
                   return true;
             } catch (error) {
                   console.log("Email verification failed:", error.message);
@@ -25,10 +35,12 @@ export class AuthService {
 
       async createAccount({ email, password, username }) {
             try {
-                  const { error } = await this.supabase.auth.signUp({
+                  this.tempSignupData = { email, password };
+                  const { error } = await this.supabase.auth.signInWithOtp({
                         email,
                         password,
                         options: {
+                              shouldCreateUser: true,
                               data: { username },
                         },
                   });

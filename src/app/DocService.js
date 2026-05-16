@@ -82,7 +82,6 @@ export class DocumentService {
             }
       }
 
-      // ─── Image Storage Operations ──────────────────────────────────────────────
       async createFile(file) {
             try {
                   const fileExt = file.name.split(".").pop();
