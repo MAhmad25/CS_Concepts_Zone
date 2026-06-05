@@ -14,7 +14,7 @@ const Signup = () => {
       const {
             register,
             handleSubmit,
-            formState: { errors, isSubmitting },
+            formState: { errors, isSubmitting, submitCount },
       } = useForm();
       const accountCreation = async (data) => {
             try {
@@ -36,14 +36,39 @@ const Signup = () => {
                                     <p className="whitespace-nowrap text-center">Enter your information to get started</p>
                                     <form onSubmit={handleSubmit(accountCreation)} className="grid  gap-3 place-content-center w-full h-full mt-5 grid-cols-2">
                                           {/* Username */}
-                                          <Input {...register("username", { required: "Username is required", minLength: { value: 2, message: "Atleast 2 characters" } })} label={"Username"} type={"text"} placeholder={"Enter your display name"} star={true} disabled={isSubmitting} />
-                                          {errors.username && <span className="text-red-500 text-xs sm:text-sm tracking-tighter leading-none">{errors.username.message}</span>}
+                                          <Input
+                                                {...register("username", {
+                                                      required: "Username is required",
+                                                      minLength: { value: 2, message: "Atleast 2 characters" },
+                                                })}
+                                                label={"Username"}
+                                                type={"text"}
+                                                placeholder={"Enter your display name"}
+                                                star={true}
+                                                disabled={isSubmitting}
+                                                shake={!!errors.username}
+                                                shakeKey={submitCount}
+                                                hasError={!!errors.username}
+                                                errorMessage={errors.username?.message}
+                                          />
                                           {/* Email */}
-                                          <Input {...register("email", { required: "Email is required" })} label={"Email"} type={"email"} placeholder={"Enter your email"} star={true} disabled={isSubmitting} />
-                                          {errors.email && <span className="text-red-500 text-xs sm:text-sm tracking-tighter leading-none">{errors.email.message}</span>}
+                                          <Input {...register("email", { required: "Email is required" })} label={"Email"} type={"email"} placeholder={"Enter your email"} star={true} disabled={isSubmitting} shake={!!errors.email} shakeKey={submitCount} hasError={!!errors.email} errorMessage={errors.email?.message} />
                                           {/* Password */}
-                                          <Input {...register("password", { required: "Password is required", minLength: { value: 8, message: "Must be 8 characters long" } })} label={"Password"} type={"password"} placeholder={"Create a 8 length of password"} star={true} disabled={isSubmitting} />
-                                          {errors.password && <span className="text-red-500 text-xs sm:text-sm tracking-tighter leading-none">{errors.password.message}</span>}
+                                          <Input
+                                                {...register("password", {
+                                                      required: "Password is required",
+                                                      minLength: { value: 8, message: "Must be 8 characters long" },
+                                                })}
+                                                label={"Password"}
+                                                type={"password"}
+                                                placeholder={"Create a 8 length of password"}
+                                                star={true}
+                                                disabled={isSubmitting}
+                                                shake={!!errors.password}
+                                                shakeKey={submitCount}
+                                                hasError={!!errors.password}
+                                                errorMessage={errors.password?.message}
+                                          />
                                           <button disabled={isSubmitting} type="submit" className={`px-3 col-span-2 flex justify-center items-center py-2 border-[1px] text-[var(--color-wht)] font-medium bg-[var(--color-bl)]  rounded-xl  ${isSubmitting ? "opacity-60  cursor-none" : "cursor-pointer opacity-100"}`}>
                                                 {isSubmitting ? <Loader /> : "Create account"}
                                           </button>

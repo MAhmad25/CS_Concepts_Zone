@@ -348,7 +348,7 @@ const Login = () => {
             register,
             handleSubmit,
             watch,
-            formState: { errors, isSubmitting },
+            formState: { errors, isSubmitting, submitCount },
       } = useForm();
 
       const watchedPassword = watch("password", "");
@@ -414,8 +414,7 @@ const Login = () => {
                               <p className="whitespace-nowrap text-center">Enter your credentials to access your account</p>
                               <form onSubmit={handleSubmit(loginAccount)} className="grid gap-3 place-content-center w-full h-full mt-5 grid-cols-2">
                                     {/* Email */}
-                                    <Input {...register("email", { required: true })} label="Email" type="email" placeholder="Enter your email" star={true} disabled={isSubmitting} onFocus={() => setIsEmailFocused(true)} onBlur={() => setIsEmailFocused(false)} />
-                                    {errors.email && <span className="text-red-500 text-xs sm:text-sm tracking-tighter leading-none">Email is required</span>}
+                                    <Input {...register("email", { required: "Email is required" })} label="Email" type="email" placeholder="Enter your email" star={true} disabled={isSubmitting} onFocus={() => setIsEmailFocused(true)} onBlur={() => setIsEmailFocused(false)} shake={!!errors.email} shakeKey={submitCount} hasError={!!errors.email} errorMessage={errors.email?.message} />
 
                                     {/* Password */}
                                     <div className="col-span-2">
@@ -432,6 +431,10 @@ const Login = () => {
                                                       star={true}
                                                       disabled={isSubmitting}
                                                       className="pr-10"
+                                                      shake={!!errors.password}
+                                                      shakeKey={submitCount}
+                                                      hasError={!!errors.password}
+                                                      errorMessage={errors.password?.message}
                                                 />
                                                 {/* Show / hide toggle */}
                                                 <button type="button" onClick={() => setShowPassword((v) => !v)} className="absolute right-2 bottom-2 text-gray-400 hover:text-gray-700 transition-colors" tabIndex={-1}>
@@ -448,7 +451,6 @@ const Login = () => {
                                                 </button>
                                           </div>
                                     </div>
-                                    {errors.password && <span className="text-red-500 text-xs sm:text-sm tracking-tighter leading-none">{errors.password.message}</span>}
 
                                     {/* Submit */}
                                     <button disabled={isSubmitting} type="submit" className={`px-3 col-span-2 flex justify-center items-center py-2 border-[1px] text-[var(--color-wht)] font-medium bg-[var(--color-bl)] rounded-xl ${isSubmitting ? "opacity-60 cursor-none" : "cursor-pointer opacity-100"}`}>
