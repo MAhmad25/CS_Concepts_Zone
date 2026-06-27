@@ -117,7 +117,7 @@ const WritePost = ({ editPost }) => {
             }
       };
       return (
-            <section className="w-full py-10 lg:px-10 min-h-svh  font-primary-text  text-[var(--color-bl)]">
+            <section className="w-full py-10 lg:px-10 min-h-svh  font-primary-text bg-[var(--color-wht)] text-[var(--color-bl)]">
                   {/* Input Section for Post image */}
                   <form onSubmit={handleSubmit(formSubmittingToDb)} className="space-y-5">
                         <h1 className="font-cool mt-10 md:text-5xl text-3xl text-center font-extrabold">{editPost ? "Edit" : "Write"}</h1>

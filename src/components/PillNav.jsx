@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { useSelector } from "react-redux";
 import { Logout, LogoutIcon, PenIcon } from "./index";
+import { MdNoAccounts } from "react-icons/md";
 
 const PillNav = ({ logo = "/favicon-628.png", logoAlt = "Logo", items, activeHref, className = "", ease = "power3.easeOut", baseColor = "#fff", pillColor = "#060010", hoveredPillTextColor = "#060010", pillTextColor, initialLoadAnimation = false }) => {
       const status = useSelector((state) => state.auth.status);
@@ -196,7 +197,7 @@ const PillNav = ({ logo = "/favicon-628.png", logoAlt = "Logo", items, activeHre
                               className="relative items-center rounded-full flex "
                               style={{
                                     height: "var(--nav-h)",
-                                    background: "var(--base, #000)",
+                                    // background: "var(--base, #000)",
                               }}
                         >
                               <ul role="menubar" className="list-none flex items-stretch m-0 p-[3px] h-full" style={{ gap: "var(--pill-gap)" }}>
@@ -274,8 +275,8 @@ const PillNav = ({ logo = "/favicon-628.png", logoAlt = "Logo", items, activeHre
                                                       <p className="leading-none whitespace-nowrap tracking-tight">{status ? "Write" : "Login"}</p>
                                                 </Link>
                                                 {!status && (
-                                                      <Link className="border-[0.1px] rounded-full px-3 py-1" to="/create-account ">
-                                                            Create an account
+                                                      <Link className="px-3 py-2 flex items-center justify-center-safe gap-2 border-[1px] rounded-full text-[var(--color-wht)] bg-[var(--color-bl)]  border-white/60" to="/create-account ">
+                                                            <MdNoAccounts /> Signup
                                                       </Link>
                                                 )}
                                                 {status && <Logout />}

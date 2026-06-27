@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 const Footer = () => {
       return (
-            <footer className="w-full py-10 px-10 h-fit">
+            <footer className="w-full py-10 bg-[var(--color-wht)] px-10 h-fit">
                   <div className="flex border-y-[1px] flex-col md:flex-row w-full md:gap-10">
                         {[
                               {

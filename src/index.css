@@ -24,7 +24,7 @@
       src: url(/fonts/ppneue.woff2);
 }
 @theme {
-      --color-wht: #ffff;
+      --color-wht: #f4f5f5;
       --color-bl: oklch(0.25 0.01 85);
       --font-primary-text: Aeonic;
       --font-secondary-text: Editorial;
