@@ -28,23 +28,28 @@ const ViewPost = () => {
             getPostData();
       }, [id]);
       const handlePostDeletion = async () => {
-            if (id) {
-                  const isPostDeleted = await documentService.deletePost(id);
-                  const isFileDeleted = await documentService.deleteFile(postData?.coverImage);
-                  dispatch(deletePost(id));
-                  if (isPostDeleted && isFileDeleted) {
-                        sileo.success({
-                              title: "Post Deleted",
-                              fill: "black",
-                              description: "This action cannot be undone !",
-                              styles: {
-                                    title: "text-white!",
-                                    description: "text-white/75!",
-                              },
-                        });
-                        navigate("/journals");
-                  } else sileo.error({ title: "Sorry we cannot delete this post" });
-            }
+            sileo.action({
+                  title: "Delete Post",
+                  description: "Are you sure you want to delete this post?",
+                  fill: "#ffc8d0",
+                  icon: <TrashIcon className="text-[#54001a] bg-transparent" />,
+                  button: {
+                        title: "Delete",
+                        onClick: async () => {
+                              if (id) {
+                                    await documentService.deletePost(id);
+                                    await documentService.deleteFile(postData?.coverImage);
+                                    dispatch(deletePost(id));
+                                    navigate("/journals");
+                              }
+                        },
+                  },
+                  styles: {
+                        title: "text-[#54001a]!",
+                        description: "text-[#54001a]!",
+                        button: "bg-[#54001a]",
+                  },
+            });
       };
       return postData ? (
             <section className="w-full px-5 font-primary-text min-h-svh text-[var(--color-bl)] bg-[var(--color-wht)]">

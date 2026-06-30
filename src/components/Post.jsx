@@ -1,36 +1,22 @@
-import { PiDiamondFill } from "react-icons/pi";
 import { GoArrowUpRight } from "react-icons/go";
 import { Link } from "react-router-dom";
 import htmlToText from "../config/CovertHTMLToText";
 import useFileView from "../hooks/useFileView";
 import dateConversion from "../utils/dateConversion";
-import { getDominantColorAsync } from "@rtcoder/dominant-color";
-import { useEffect, useRef, useState } from "react";
 const Post = ({ postData }) => {
       const { url } = useFileView(postData);
-      const img = useRef(null);
-      const [dmColorHex, setColor] = useState("#ffffff");
-      useEffect(() => {
-            (async () => {
-                  if (img.current != null) {
-                        const { dominant } = await getDominantColorAsync(img.current, {
-                              colorFormat: "hex",
-                              colorQuantization: "median-cut",
-                        });
-                        setColor(dominant);
-                  }
-            })();
-      }, [url]);
-
+      const cardColor = postData?.card_color?.trim();
+      console.log(cardColor);
       return (
             <Link to={`/journals/${postData?.id}`}>
-                  <div style={{ backgroundColor: dmColorHex }} className="cursor-pointer overflow-hidden text-[var(--color-wht)]  transition-all duration-500  space-y-4 shrink-0  px-5 py-5">
+                  <div style={{ backgroundColor: cardColor || "transparent" }} className="cursor-pointer rounded-2xl overflow-hidden text-[var(--color-wht)] transition-all duration-500 space-y-4 shrink-0 px-5 py-5">
                         {/* Featured Image */}
-                        <div className="w-full  max-h-[250px]  overflow-hidden rounded">{url ? <img ref={img} className="w-full h-full object-cover" src={url} alt="Cover Image" /> : <div className="w-full h-full flex items-center justify-center text-gray-500">Loading image...</div>}</div>
+                        <div className="w-full  max-h-[250px]  overflow-hidden rounded">
+                              <img className="w-full h-full object-cover" src={url} alt="Cover Image" />
+                        </div>
                         {/* Author Name and Date of post */}
                         <div className="w-full  flex gap-4 items-center">
                               <h2 className="leading-none tracking-tight">{postData?.authorName}</h2>
-                              <PiDiamondFill />
                               <h2 className="leading-none tracking-tight">{dateConversion(postData?.createdAt)}</h2>
                         </div>
                         {/* Heading and  */}

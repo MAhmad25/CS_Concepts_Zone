@@ -14,7 +14,7 @@ const Home = () => {
       return (
             <section className="w-full px-5 font-primary-text bg-[var(--color-wht)] text-[var(--color-bl)] flex flex-col relative pt-34 gap-14 items-center">
                   <div className="absolute inset-x-0 top-0 h-[100dvh] z-0 flex justify-center overflow-hidden" style={{ opacity: 1, filter: "blur(0px)" }}>
-                        <img src="https://crackedresume.com/assets/sky.webp" alt="Landing Background" className="absolute inset-0 object-cover h-full lg:w-full" />
+                        <img src="/sky.webp" alt="Landing Background" className="absolute inset-0 object-cover h-full lg:w-full" />
                         <div className="absolute space-y-10 inset-0 flex justify-center items-center flex-col  [mask-image:_linear-gradient(to_bottom,_white_0,_white_50%)]  md:[mask-image:_linear-gradient(to_bottom,_white_10%,_white_60%)]" style={{ background: "radial-gradient(107.98% 71.57% at 50% 18.11%, rgba(245, 245, 245, 0.01) 31.25%, rgba(245, 245, 245, 0.90) 59.62%, rgba(245, 245, 245, 0.99) 100%)" }}>
                               <h1 className="font-cool text-center sm:w-1/2 font-black text-4xl md:text-5xl tracking-tight">CS stuff, For Interviews Preparation</h1>
                               <p className="font-ppneue text-center sm:w-1/2 text-xl sm:text-2xl">OS, DBMS, Networks, DSA written by students and devs who just went through it</p>
