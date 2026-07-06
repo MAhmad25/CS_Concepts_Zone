@@ -6,7 +6,6 @@ import dateConversion from "../utils/dateConversion";
 const Post = ({ postData }) => {
       const { url } = useFileView(postData);
       const cardColor = postData?.card_color?.trim();
-      console.log(cardColor);
       return (
             <Link to={`/journals/${postData?.id}`}>
                   <div style={{ backgroundColor: cardColor || "transparent" }} className="cursor-pointer rounded-2xl overflow-hidden text-[var(--color-wht)] transition-all duration-500 space-y-4 shrink-0 px-5 py-5">
