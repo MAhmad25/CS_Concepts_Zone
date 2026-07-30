@@ -11,6 +11,8 @@ import useAllPosts from "../hooks/useAllPosts";
 import { Toaster } from "sileo";
 import VerifyEmail from "../components/OTP";
 const LazyFooter = lazy(() => import("../components/Footer"));
+import { DiaGradient } from "./../components/ui/DiaGradient";
+
 const AppRoute = () => {
       const dispatch = useDispatch();
       useAllPosts();
@@ -95,6 +97,9 @@ const AppRoute = () => {
                   <Suspense fallback={<>Loading</>}>
                         <LazyFooter />
                   </Suspense>
+                  <div className=" fixed inset-x-0 -bottom-20 h-[55vh] pointer-events-none z-0">
+                        <DiaGradient />
+                  </div>
             </>
       );
 };

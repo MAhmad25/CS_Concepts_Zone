@@ -122,13 +122,7 @@ const Editor = forwardRef(function Editor({ initialHTML = "" }, ref) {
             <div className="space-y-3">
                   <div className="flex flex-wrap items-center gap-3 px-10">
                         <input ref={pdfInputRef} className="hidden" type="file" accept="application/pdf,.pdf" onChange={handlePdfImport} />
-                        <button
-                              type="button"
-                              className="inline-flex h-10 items-center gap-2 rounded-md border border-[var(--color-bl)]/20 px-3 text-sm font-medium text-[var(--color-bl)] transition hover:bg-[var(--color-bl)] hover:text-[var(--color-wht)] disabled:cursor-not-allowed disabled:opacity-60"
-                              onClick={() => pdfInputRef.current?.click()}
-                              disabled={pdfImporting}
-                              title="Import PDF"
-                        >
+                        <button type="button" className="inline-flex h-10 items-center gap-2 rounded-md border border-[var(--color-bl)]/20 px-3 text-sm font-medium text-[var(--color-bl)] transition hover:bg-[var(--color-bl)] hover:text-[var(--color-wht)] disabled:cursor-not-allowed disabled:opacity-60" onClick={() => pdfInputRef.current?.click()} disabled={pdfImporting} title="Import PDF">
                               {pdfImporting ? <LuLoaderCircle className="h-4 w-4 animate-spin" /> : <LuFileUp className="h-4 w-4" />}
                               {pdfImporting ? "Importing" : "Import PDF"}
                         </button>
