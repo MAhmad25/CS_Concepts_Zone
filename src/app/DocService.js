@@ -7,7 +7,7 @@ export class DocumentService {
             this.supabase = createClient(secret.supabase_url, secret.supabase_anon_key);
       }
 
-      async createPost({ title, content, tags, coverImage, readingTime, author, authorName, card_color }) {
+      async createPost({ title, content, tags, coverImage, readingTime, author, authorName }) {
             try {
                   const { data, error } = await this.supabase
                         .from(secret.article_table)
@@ -20,7 +20,6 @@ export class DocumentService {
                                     readingTime,
                                     author,
                                     authorName,
-                                    card_color,
                               },
                         ])
                         .select()

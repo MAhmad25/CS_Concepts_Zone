@@ -9,7 +9,6 @@ import { setNewPost, updatePost } from "../store/reducers/postsSlice";
 import { useScrollTop } from "./index.js";
 import { useWebHaptics } from "web-haptics/react";
 import Editor from "../components/Editor.jsx";
-import { getDominantColorAsync } from "@rtcoder/dominant-color";
 
 const WritePost = ({ editPost }) => {
       const { trigger } = useWebHaptics({ debug: true });
@@ -21,13 +20,6 @@ const WritePost = ({ editPost }) => {
       const [preview, setPreview] = useState(null);
       const prevUrlRef = useRef(null);
       const editorRef = useRef(null);
-      const dominantFunc = async (img) => {
-            const { dominant } = await getDominantColorAsync(img, {
-                  colorFormat: "hex",
-                  colorQuantization: "exact",
-            });
-            return dominant;
-      };
       const {
             register,
             handleSubmit,
@@ -103,8 +95,7 @@ const WritePost = ({ editPost }) => {
                         if (newFile) {
                               await docService.deleteFile(editPost?.coverImage);
                         }
-                        const dominant = await dominantFunc(hasNewImage);
-                        const updatedPost = await docService.updatePost(editPost.id, { ...finalData, coverImage: newFile ? newFile.path : editPost?.coverImage, card_color: dominant });
+                        const updatedPost = await docService.updatePost(editPost.id, { ...finalData, coverImage: newFile ? newFile.path : editPost?.coverImage });
                         if (updatedPost) {
                               dispatch(updatePost({ id: editPost.id, updatedPost }));
                               dispatch(setLoadingFalse());
@@ -113,8 +104,7 @@ const WritePost = ({ editPost }) => {
                   } else {
                         const newFile = finalData.coverImage[0] && (await docService.createFile(finalData.coverImage[0]));
                         if (newFile) {
-                              const dominant = await dominantFunc(finalData.coverImage[0]);
-                              const newPost = await docService.createPost({ ...finalData, coverImage: newFile.path, author: userData.id, authorName: userData.user_metadata.username, card_color: dominant });
+                              const newPost = await docService.createPost({ ...finalData, coverImage: newFile.path, author: userData.id, authorName: userData.user_metadata.username });
                               if (newPost) {
                                     dispatch(setNewPost(newPost));
                                     dispatch(setLoadingFalse());
